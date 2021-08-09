@@ -67,19 +67,27 @@ class App extends Component {
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
     .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
     .catch(error => console.log(error));
-  }
+  };
+
+  onRouteChange = (route) => {
+    this.setState({route: route});
+  };
 
   render() {
   return (
     <div className="App">
       <Particles className='particles'
       params={particlesOptions}/>
-      <Navigation />
-      <SignIn/>
+      <Navigation onRouteChange={this.onRouteChange}/>
+      {this.state.route === 'SignIn' 
+      ? <SignIn onRouteChange={this.onRouteChange}/>
+      : <div>
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={this.onInputChange} onSubmit={this.onSubmit}/>
       <FaceRecognition imageUrl={this.state.imageUrl} box={this.state.box}/>
+      </div>
+      }
       </div>
     );
   }
