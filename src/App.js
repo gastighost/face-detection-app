@@ -89,7 +89,7 @@ class App extends Component {
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
     .then(response => {
       if (response) {
-        fetch('http://localhost:3000/image', {
+        fetch('https://warm-peak-60310.herokuapp.com/:3000/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
